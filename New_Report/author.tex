@@ -1,5 +1,10 @@
 \documentclass{svproc}
 \usepackage{url}
+\tolerance=1
+\emergencystretch=\maxdimen
+\hyphenpenalty=10000
+\usepackage{caption}
+\usepackage{float}
 \def\UrlFont{\rmfamily}
 
 \begin{document}
@@ -37,8 +42,9 @@ The report will be graded on the basis of:
 Your report should provide a survey and an experimental comparison of multiple solution approaches to a particular problem. This is a critical review of at least three papers that significantly contributed to advance the state-of-the-art for the problem you are analysing. It should not be a mere summary of the papers. You are expected to conduct an analytical review of the methods under analysis to try to find common aspect and differences, connections between methods, drawbacks and open problems. Unless the faced problem has emerged recently, students should choose their papers by diversifying the range of approaches used to solve the problem. A good guideline could be to choose a paper from a decade or two ago, and a couple of more recent papers. You need to experimentally evaluate approaches in a simulation of a problem, in a range of scenarios, and analyse the pros and cons of each approach. 
 
 \section{Introduction}
-In this section, you should introduce your work: what are the motivations behind this work? What is the relevant problem that you are investigating? Why is it relevant? 
-Briefly, introduce the background information required to understand the problem and the concepts that you will develop. 
+There have been many heuristic searching algorithms in the AI domain. Many gaming problems have been formed to test their efficiency. The N-puzzle problem is among these problems, and it is also included in the list of classic difficulty problems. This puzzle consists of N square tiles with tiles numbered from 1 to N. The goal of this problem is to rearrange the numbers in ascending order on the MxM board. This paper focusses on the 8-puzzle problem, which is a smaller version of the N-puzzle problem, and finds solutions using four algorithms (BFS, DFS, A*).  Also, these solutions are compared by examing their evaluation metrics, such as the cost of the path and time taken to find the solution. \\
+
+\noindent The paper is structured as follows: section 2 discusses prior literature outlining the algorithms used in those papers,  section 3 defines the 8-puzzle problem in detail and describes the algorithms used, section 4 shows the results and comparisons of these algorithms.
 
 \section{Related Work}
 In this section you will discuss possible approaches to solve the problem you are addressing, justifying your choice of the 3 you have selected to evaluate. Also, briefly introduce the approaches you are evaluating with a specific emphasis on differences and similarities to the proposed approach(es).
