@@ -1,4 +1,7 @@
 .DS_Store
-Report/author.pdf
+New_Report/author.pdf
+New_Report/author.aux
+New_Report/author.log
+New_Report/author.synctex.gz
 Implementation/8-puzzle-results.csv
 Implementation/output.txt
