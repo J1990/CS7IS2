@@ -47,7 +47,11 @@ There have been many heuristic searching algorithms in the AI domain. Many gamin
 \noindent The paper is structured as follows: section 2 discusses prior literature outlining the algorithms used in those papers,  section 3 defines the 8-puzzle problem in detail and describes the algorithms used, section 4 shows the results and comparisons of these algorithms.
 
 \section{Related Work}
-In this section you will discuss possible approaches to solve the problem you are addressing, justifying your choice of the 3 you have selected to evaluate. Also, briefly introduce the approaches you are evaluating with a specific emphasis on differences and similarities to the proposed approach(es).
+
+
+To solve the 8-puzzle problem, we have chosen to implement Breadth-First Search, Depth-First Search, A* and Iterative Depth A* algorithms. With these selected algorithms we can compare both uninformed and informed search techniques in terms of completeness, space-time complexity, and optimality. Although the exhaustive traversal method of both breadth-first and depth-first searches do not promise optimality, they can act as a baseline for comparison with other algorithms in terms of improvements. Both A* and IDA algorithms make use of heuristics to make informed search traversal and provide an optimal solution. All these algorithms form the basis of solutions for various search problems in the domain of artificial intelligence.
+While breadth-first search ensures completeness of searching the entire space of available states, it consumes a lot of memory for its implementation. Conversely, depth-first search uses less memory space as it stores only one branch of the search tree in memory at any given time, but the tree search version lacks completeness due to possible infinite loops[1]. With an evaluation function that combines both the cost to reach the current state and estimated cost to reach the goal from the current state, the A* algorithm is both optimal and complete. Our intention to select the above algorithms is to evaluate the performance of these basic search algorithms on a real-world AI problem such as the 8-puzzle and compare various aspects of the algorithms.
+
 
 \section{Problem Definition and Algorithm}
 The n-puzzle problem is a classic AI problem which contains n numbered tiles and one blank tile. These plates are arranged in a grid with the numbered tiles marked as 1, 2, 3 .. n. The blank tile is movable in the grid which can be achieved by moving the numbered tiles in the place of empty tile. To achieve the goal state of the puzzle, the grid should be arranged in such a way that the empty tile is at the first position and all the numbered tiles are arranged in numerical order. The problem in solving the n-puzzle is to reach the goal state in as little cost as possible. For instance, an eight-puzzle problem consists of 8 numbered tiles - 1, 2, 3, 4, 5, 6, 7, 8. The goal state of the 8-puzzle problem is shown in the figure. \\
@@ -73,33 +77,8 @@ A standard and well formatted bibliography of papers cited in the report. For ex
 \begin{thebibliography}{6}
 %
 
-\bibitem {smit:wat}
-Smith, T.F., Waterman, M.S.: Identification of common molecular subsequences.
-J. Mol. Biol. 147, 195?197 (1981). \url{doi:10.1016/0022-2836(81)90087-5}
-
-\bibitem {may:ehr:stein}
-May, P., Ehrlich, H.-C., Steinke, T.: ZIB structure prediction pipeline:
-composing a complex biological workflow through web services.
-In: Nagel, W.E., Walter, W.V., Lehner, W. (eds.) Euro-Par 2006.
-LNCS, vol. 4128, pp. 1148?1158. Springer, Heidelberg (2006).
-\url{doi:10.1007/11823285_121}
-
-\bibitem {fost:kes}
-Foster, I., Kesselman, C.: The Grid: Blueprint for a New Computing Infrastructure.
-Morgan Kaufmann, San Francisco (1999)
-
-\bibitem {czaj:fitz}
-Czajkowski, K., Fitzgerald, S., Foster, I., Kesselman, C.: Grid information services
-for distributed resource sharing. In: 10th IEEE International Symposium
-on High Performance Distributed Computing, pp. 181?184. IEEE Press, New York (2001).
-\url{doi: 10.1109/HPDC.2001.945188}
-
-\bibitem {fo:kes:nic:tue}
-Foster, I., Kesselman, C., Nick, J., Tuecke, S.: The physiology of the grid: an open grid services architecture for distributed systems integration. Technical report, Global Grid
-Forum (2002)
-
-\bibitem {onlyurl}
-National Center for Biotechnology Information. \url{http://www.ncbi.nlm.nih.gov}
+\bibitem {rus}
+Russell, Stuart J. (Stuart Jonathan). Artificial Intelligence: a Modern Approach. Upper Saddle River, N.J.       :Prentice Hall, 2010.
 
 
 \end{thebibliography}
