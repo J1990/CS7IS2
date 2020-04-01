@@ -57,7 +57,7 @@ A* is a form of informed Search algorithm, the term “informed” signifies tha
 The Iterative Deepening A* Algorithm works on the short comings of the A*, i.e. resolving the space complexity and keeping the solution optimal at the same time. It follows the DFS approach where the cost of the generated node is matched with a threshold value. If that value is higher, the branch is cut-off from going into further investigation and new states are searched by backtracking of the information. Each iteration recalculates this value in the heuristic function for each level in the tree. The path to the goal state is optimal in the first try and the value is lower than the estimated threshold value.
 \subsection{Extended BFS Search Algorithm}
 
-ref - [2][SOME IMPROVEMENTS OF THE EXTENDED BREADTH-FIRST SEARCH ALGORITHM TAMAS K ´ ADEK AND J ´ ANOS P ´ ANOVICS]
+%ref - [2][SOME IMPROVEMENTS OF THE EXTENDED BREADTH-FIRST SEARCH ALGORITHM TAMAS K ´ ADEK AND J ´ ANOS P ´ ANOVICS]
 
 
 In [2], the authors describe an algorithm that runs on the ESSM ( Extended State-Space Model ) which empowers backtracking capabilities to the algorithms. In EBFS, The States are stored in form of subtrees in the database, with forward functions storing the forward states, forward status, parent and children. The basic idea of storing these trees is to provide extra information to the algorithm in the form of sub-states that are useful for reaching the goal and enables backtracking capability for the problem space.
@@ -66,7 +66,9 @@ In [2], the authors describe an algorithm that runs on the ESSM ( Extended State
 \section{Problem Definition and Algorithm}
 The n-puzzle problem is a classic AI problem which contains n numbered tiles and one blank tile. These plates are arranged in a grid with the numbered tiles marked as 1, 2, 3 .. n. The blank tile is movable in the grid which can be achieved by moving the numbered tiles in the place of empty tile. To achieve the goal state of the puzzle, the grid should be arranged in such a way that the empty tile is at the first position and all the numbered tiles are arranged in numerical order. The problem in solving the n-puzzle is to reach the goal state in as little cost as possible. For instance, an eight-puzzle problem consists of 8 numbered tiles - 1, 2, 3, 4, 5, 6, 7, 8. The goal state of the 8-puzzle problem is shown in the figure. \\
 
-The cost to achieve the goal can be measured in terms of the number of movements done. At any given intermediate state, there can be at least two and at most four possible movements.
+The cost to achieve the goal can be measured in terms of the number of movements done. At any given intermediate state, there can be at least two and at most four possible movements of the blank tile. Although reaching a goal in such puzzles is easy, but finding the shortest path with the lowest cost is difficult. The figure shows an example of a solution for an 8-puzzle problem from the given start state. The state-space of the 8-puzzle problem is such that if the goal state can be achieved in a certain number of steps, then all movements towards the solution are considered good moves and all the movements that are farther from the solution are considered bad moves. The aim is to find the good moves which lead to minimum cost. \\
+
+8-puzzle problem is a search problem which can be solved by various searching algorithms like BFS and DFS. In these, the problems are represented as search graphs or trees. The nodes of the graph/tree denote intermediate states and also the goal state. The searching can be done by expanding to a depth (child nodes) or exploring the breadth (sibling nodes). \\
 
 \subsection{Subsection Title}
 
