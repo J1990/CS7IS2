@@ -5,6 +5,8 @@
 \hyphenpenalty=10000
 \usepackage{caption}
 \usepackage{float}
+\usepackage[ruled,vlined]{algorithm2e}
+\usepackage{algorithmic}
 \def\UrlFont{\rmfamily}
 
 \begin{document}
@@ -70,7 +72,48 @@ The cost to achieve the goal can be measured in terms of the number of movements
 
 8-puzzle problem is a search problem which can be solved by various searching algorithms like BFS and DFS. In these, the problems are represented as search graphs or trees. The nodes of the graph/tree denote intermediate states and also the goal state. The searching can be done by expanding to a depth (child nodes) or exploring the breadth (sibling nodes). \\
 
-\subsection{Subsection Title}
+\subsection{BFS}
+
+\begin{algorithm}[H]
+	\SetAlgoLined
+	% \KwResult{Write here the result }
+	 $queue \gets start state$\;
+	 $explored \gets empty$\;
+	\While{queue is not empty}{
+		node = queue.pop\_left\_state()\;
+		explored.add(node)\;
+		\If{node is goal state}{
+			return queue\;
+		}
+		neighbors = expand(node)\;
+		\For{ each neighbor} {
+			\If{neighbor is not explored}{
+				queue.append(neighbor)\;
+				explored.add(neighbor)\;
+			}
+		}
+	}
+	\caption{BFS}
+\end{algorithm}
+
+\subsection{DFS}
+
+\begin{algorithm}[H]
+	\SetAlgoLined
+	% \KwResult{Write here the result }
+	$stack \gets start state$\;
+	$explored \gets empty$\;
+	\While{While condition}{
+		instructions\;
+		\eIf{condition}{
+			instructions1\;
+			instructions2\;
+		}{
+			instructions3\;
+		}
+	}
+	\caption{DFS}
+\end{algorithm}
 
 \section{Experimental Results}
 This section should provide the details of the evaluation. Specifically:
