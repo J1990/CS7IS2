@@ -1,4 +1,5 @@
 \documentclass{svproc}
+\usepackage{graphicx}  %%% for including graphics
 \usepackage{url}
 \tolerance=1
 \emergencystretch=\maxdimen
@@ -30,7 +31,7 @@ The abstract should summarize the contents of the report and should contain at l
  
 
 \section{Introduction}
-There have been many heuristic searching algorithms in the AI domain. Many gaming problems have been formed to test their efficiency. The N-puzzle problem is among these problems, and it is also included in the list of classic difficulty problems. This puzzle consists of N square tiles with tiles numbered from 1 to N. The goal of this problem is to rearrange the numbers in ascending order on the MxM board. This paper focusses on the 8-puzzle problem, which is a smaller version of the N-puzzle problem, and finds solutions using four algorithms (BFS, DFS, A*).  Also, these solutions are compared by examing their evaluation metrics, such as the cost of the path and time taken to find the solution. \\
+There have been many single-agent search algorithms in the AI domain. Many gaming problems have been formed to test their efficiency. The N-puzzle problem is among these problems, and it is also included in the list of classic difficulty problems. This puzzle consists of N square tiles with tiles numbered from 1 to N. It is represented in a search graph or tree, where the nodes depict the position of the square tiles in the grid. The goal of this problem is to rearrange the numbers in ascending order on the MxM board. This paper focusses on the 8-puzzle problem, which was chosen because it has a smaller state space than the larger N-puzzle problem and the algorithms can be analyzed extensively. We have used four algorithms (BFS, DFS, A*) to find the solution for this puzzle.  Also, these solutions are compared by examing their evaluation metrics, such as the cost of the path and time taken to find the solution. \\
 
 \noindent The paper is structured as follows: section 2 discusses prior literature outlining the algorithms used in those papers,  section 3 defines the 8-puzzle problem in detail and describes the algorithms used, section 4 shows the results and comparisons of these algorithms.
 
@@ -66,11 +67,26 @@ In [2], the authors describe an algorithm that runs on the ESSM ( Extended State
 
 
 \section{Problem Definition and Algorithm}
-The n-puzzle problem is a classic AI problem which contains n numbered tiles and one blank tile. These plates are arranged in a grid with the numbered tiles marked as 1, 2, 3 .. n. The blank tile is movable in the grid which can be achieved by moving the numbered tiles in the place of empty tile. To achieve the goal state of the puzzle, the grid should be arranged in such a way that the empty tile is at the first position and all the numbered tiles are arranged in numerical order. The problem in solving the n-puzzle is to reach the goal state in as little cost as possible. For instance, an eight-puzzle problem consists of 8 numbered tiles - 1, 2, 3, 4, 5, 6, 7, 8. The goal state of the 8-puzzle problem is shown in the figure. \\
+The n-puzzle problem is a classic AI problem which contains n numbered tiles and one blank tile. These plates are arranged in a grid with the numbered tiles marked as 1, 2, 3 .. n. The blank tile is movable in the grid which can be achieved by moving the numbered tiles in the place of empty tile. To achieve the goal state of the puzzle, the grid should be arranged in such a way that the empty tile is at the first position and all the numbered tiles are arranged in numerical order. The problem in solving the n-puzzle is to reach the goal state in as little cost as possible. For instance, an eight-puzzle problem consists of 8 numbered tiles - 1, 2, 3, 4, 5, 6, 7, 8. The goal state of the 8-puzzle problem is shown in the figure (fig 1). \\
+
+\begin{figure}
+	\centering
+	\includegraphics[width=6cm,height=6cm,keepaspectratio]{GoalState.png}
+	\caption{Goal State}
+	\label{fig:1}       % Give a unique label
+\end{figure}
+
 The cost to achieve the goal can be measured in terms of the number of movements done. At any given intermediate state, there can be at least two and at most four possible movements of the blank tile. Although reaching a goal in such puzzles is easy, but finding the shortest path with the lowest cost is difficult. The figure shows an example of a solution for an 8-puzzle problem from the given start state. The state-space of the 8-puzzle problem is such that if the goal state can be achieved in a certain number of steps, then all movements towards the solution are considered good moves and all the movements that are farther from the solution are considered bad moves. The aim is to find the good moves which lead to minimum cost. \\
 8-puzzle problem is a search problem which can be solved by various searching algorithms like BFS and DFS. In these, the problems are represented as search graphs or trees. The nodes of the graph/tree denote the states where the goal state is also present as one of the nodes. A part of the tree for the 8-puzzle problem is shown in the figure. The searching can be done by expanding to a depth (child nodes) or exploring the breadth (sibling nodes). \\
 For the implementation of BFS and DFS, we referred to the implementation done by [], which used Python. The model of a state was built with parameters like state, parent, cost, depth to maintain information about each state. For the 8-puzzle problem, a state is represented in an array format which shows the arrangement of the numbers in a particular state. For example, state A in the figure is represented as [0,8,7,6,5,4,3,2,1]. An expand() function is also added which is responsible for finding the states obtained after moves. The moves are done in the order of up, down, left and right. The BFS makes use of the queue data structure whereas the DFS makes use of the stack data structure. \\
 Additionally, few metrics are used for the measurement of the performance of the search algorithms. The maximum search depth is one of the parameters which measures the maximum depth that the algorithm explores to get the solution. The maximum frontier size is the maximum size of the queue/stack that was acquired for reaching the goal state. Apart from this, running time and maximum RAM usage are other parameters used to measure the efficiency of the algorithm. \\
+
+\begin{figure}
+	\centering
+	\includegraphics[width=12cm,height=6cm,keepaspectratio]{ExampleState.png}
+	\caption{State space of 8-puzzle problem}
+	\label{fig:2}       % Give a unique label
+\end{figure}
 
 \subsection{BFS}
 
@@ -96,6 +112,8 @@ Additionally, few metrics are used for the measurement of the performance of the
 	\caption{BFS}
 \end{algorithm}
 
+\noindent If we go through the algorithm and apply it to the given figure (fig 2), we can see that the queue variable is appended with [0,8,7,6,5,4,3,2,1] (State A), which is the initial state and where 0 represents blank. Since this is the only entry in the queue, the node variable is initialized with the value and added to the explored list. Since this state is not the goal state, we expand it to get states B and C (fig 2) as neighbors. These states are added to the queue and the explored list in the same order. Thus, when we pop an item from the queue, we get state B as the node, which is expanded and processed in the same way as in the previous step. Thus, states D and E are appended to the queue (consisting of state C) as well as the explored list. The next time when we pop an item from the queue, we get state C as the node, which is expanded and processed. In this way, the BFS algorithm analyzes nodes across the breadth of the search graph.
+
 \subsection{DFS}
 
 \begin{algorithm}[H]
@@ -119,6 +137,8 @@ Additionally, few metrics are used for the measurement of the performance of the
 	}
 	\caption{DFS}
 \end{algorithm}
+
+\noindent By applying this algorithm to the given figure (fig 2), the stack variable is initialized with [0,8,7,6,5,4,3,2,1] (State A), which is the initial state and where 0 represents blank. Since this is the only entry in the stack, the node variable is initialized with the value and added to the explored list. Since this state is not the goal state, we expand it to get states B and C (fig 2) and store the reversed list in neighbors (consisting of state C and B). Thus, while appending the states, state B is the last node which is appended in the stack and explored list. Therefore, when we pop an item from the stack, we get state B as the node. Now, while expanding this node, we get state D and E, which is reversed and appended to stack and explored list. Thus, the stack (consisting of states C, E, D) contains the last node as state D. The next time when we pop an item from the stack, we get state D as the node, which is expanded and processed. In this way, the DFS algorithm analyzes nodes down the depth of the search graph.
 
 \section{Experimental Results}
 This section should provide the details of the evaluation. Specifically:
