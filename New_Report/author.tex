@@ -140,6 +140,49 @@ Additionally, few metrics are used for the measurement of the performance of the
 
 \noindent By applying this algorithm to the given figure (fig 2), the stack variable is initialized with [0,8,7,6,5,4,3,2,1] (State A), which is the initial state and where 0 represents blank. Since this is the only entry in the stack, the node variable is initialized with the value and added to the explored list. Since this state is not the goal state, we expand it to get states B and C (fig 2) and store the reversed list in neighbors (consisting of state C and B). Thus, while appending the states, state B is the last node which is appended in the stack and explored list. Therefore, when we pop an item from the stack, we get state B as the node. Now, while expanding this node, we get state D and E, which is reversed and appended to stack and explored list. Thus, the stack (consisting of states C, E, D) contains the last node as state D. The next time when we pop an item from the stack, we get state D as the node, which is expanded and processed. In this way, the DFS algorithm analyzes nodes down the depth of the search graph.
 
+
+\subsection{A*}
+
+\begin{algorithm}[H]
+	\SetAlgoLined
+	% \KwResult{Write here the result }
+	$state \gets start\_state$\;
+	$explored \gets empty$\;
+	$heap \gets empty$\;
+	$heap\_entry \gets empty$\;
+	$total_distance \gets heuristic(start\_state)$\;
+	$move \gets 0$\;
+	$entry \gets (total\_distance, move, state)$\;
+	heap\_entry[state] = entry\;
+	heap.push(entry)\;
+	\While{heap is not empty}{
+		node = heap.pop()\;
+		explored.add(node.state)\;
+		\If{node is goal state}{
+			return heap\;
+		}
+		neighbors = expand(node.state)\;
+		\For{ each neighbor} {
+			neighbor.total\_distance = cost(neighbor) + heuristice(neighbor)\;
+			entry = (neighbor.key, neighbor.move, neighbor.state)\;
+			\eIf{neighbor is not explored}{
+				heat.push(entry)\;
+				explored.add(neighbor)\;
+				heap\_entry[neighbor] = entry\;
+			}
+			{\If{neighbor is in heap\_entry and neighbor.total\_distance \textless heap\_entry[neighbor].total\_distance}{
+					h\_index = index of neighbor in heap\;
+					heap[h\_index] = entry\;
+					heap\_entry[neighbor] = entry\;
+					sort\_heap() with total\_distance\;
+				}
+			}
+		}
+	}
+	\caption{A*}
+\end{algorithm}
+
+
 \section{Experimental Results}
 This section should provide the details of the evaluation. Specifically:
 \begin{itemize}
