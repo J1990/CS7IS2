@@ -155,7 +155,7 @@ The abstract should summarize the contents of the report and should contain at l
 		}
 		neighbors = expand(node.state)\;
 		\For{ each neighbor} {
-			neighbor.total\_distance = cost(neighbor) + heuristice(neighbor)\;
+			neighbor.total\_distance = cost(neighbor) + heuristic(neighbor)\;
 			entry = (neighbor.key, neighbor.move, neighbor.state)\;
 			\eIf{neighbor is not explored}{
 				heat.push(entry)\;
@@ -176,15 +176,15 @@ The abstract should summarize the contents of the report and should contain at l
 \noindent Since this is the only entry in the heap, the node variable gets initialized with this state and added to the explored list. Since this state is not the goal state, we expand it to get states B and C (fig 2) as neighbors. If these states are not present in the explored list, they are added to the heap queue, heap entry list and explored list. While appending these states in the heap queue, the states are sorted in ascending order according to their heuristic measure. Since both the states have the same heuristic value (18), state B will be chosen to process further. If these states are present in the explored list and their heuristic measure is less than their previous measure, then the state is replaced with its current values in the heap queue and heap entry list. Also, the elements in the heap queue are sorted in ascending order. In this way, A* always takes the state which has the lowest heuristic measure. 
 
 \section{Experimental Results}
-This section should provide the details of the evaluation. Specifically:
-\begin{itemize}
-\item Methodology: describe the evaluation criteria, the data used during the evaluation, and the methodology followed to perform the evaluation. 
-\item Results: present the results of the experimental evaluation. Graphical data and tables are two common ways to present the results. Also, a comparison with a baseline should be provided.
-\item Discussion: discuss the implication of the results of the proposed algorithms/models. What are the weakness/strengths of the method(s) compared with the other methods/baseline?
-\end{itemize}
+\noindent Few metrics are used for the measurement of the performance of the search algorithms. The number of nodes expanded is one of the parameters which measures the  expanded nodes to get the states after applying the four moves. The cost of the path is the number of steps/moves taken for reaching the goal state. Apart from this, running time is also used to measure the efficiency of the algorithm. For calculating the running time, we use a timer which starts before the execution begins and stops after the execution ends. These metrics are evaluated for all of the five start states with the mentioned difficulty levels showcased in Table 1. The results are obtained for BFS, DFS and A* (with both heuristics) algorithms. The results are showcased in Fig 3 and Fig 4. We choose the BFS, DFS and A* with Gaschnig's max swap heuristic is used as a baseline for our evaluation. \\
 
-Few metrics are used for the measurement of the performance of the search algorithms. The number of nodes expanded is one of the parameters which measures the  expanded nodes to get the states after applying the four moves. The cost of the path is the number of steps/moves taken for reaching the goal state. Apart from this, running time is also used to measure the efficiency of the algorithm. For calculating the running time, we use a timer which starts before the execution begins and stops after the execution ends. These metrics are evaluated for all of the five start states with the mentioned difficulty levels showcased in Table 1. The results are obtained for BFS, DFS and A* (with both heuristics) algorithms. \\
-The results are showcased in Fig 3 and Fig 4. We choose the BFS, DFS and A* with Gaschnig's max swap heuristic is used as a baseline for our evaluation.
+\noindent As shown in figure 3, the number of nodes expanded for A* with both the heuristics is equal for very easy, easy and doable start states. However, for the medium and difficult start state, the number of nodes expanded has drastically decreased for A* with Hausdorff distance. For difficult start state, only 470 nodes are expanded for A* with Hausdorff distance as compared to 12,893 nodes for A* with Gaschnig's Max Swap. Also, the number of nodes expanded with all the start states (except easy) for A* with Hausdorff distance is less than the number of nodes for BFS and DFS. \\
+
+\noindent It can be seen in figure 4 that the running time for A* with Hausdorff distance is greater than BFS and A* with Gaschnig's Max Swap for all the start states. However, as compared to DFS,  A* with Hausdorff distance takes lesser time for very easy and doable start states.\\
+
+\noindent In terms of the cost of the path, we observed that BFS and A* with Gaschnig's Max Swap took an equal number of steps to reach the goal state. Figure 5 depicts the cost of the path where A* with Hausdorff distance took the same number of steps as BFS and A* with Gaschnig's Max Swap for very easy, easy and doable start states.  But it took more steps than these two algorithms for medium and difficult start states. In comparison to DFS, it performed better for doable, medium and difficult states. \\
+
+\noindent  The analysis shows that A* with Hausdorff distance expands the least number of nodes as compared to all the baselines. However, it takes a larger running time because of the computations involved in image generation and image comparison. It was also observed that the cost of the path was more for this method as compared to BFS and A* with Gaschnig's Max Swap since it selects based on the newer heuristic value. Thus, this type of heuristic can be probably used in scenarios where image comparison is done such as solving jigsaw puzzles. \\
 
 \begin{table}[ht]
 	\caption{Difficulty levels in 8-puzzle problem}
