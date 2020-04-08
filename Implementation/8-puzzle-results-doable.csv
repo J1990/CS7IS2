@@ -1,0 +1,5 @@
+algorithm,heuristic,cost_of_path,nodes_expanded,search_depth,running_time,max_ram_usage
+BFS,-,4,29,4,0.00113927,266240
+DFS,-,59124,120488,59124,4.95095440,73461760
+A*,displacement from goal state,4,4,4,0.06874136,-45600768
+A*,image difference,4,4,4,0.09681843,56602624
