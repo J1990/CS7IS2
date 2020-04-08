@@ -5,10 +5,11 @@
 \emergencystretch=\maxdimen
 \hyphenpenalty=10000
 \usepackage{caption}
-\usepackage{subcaption}
 \usepackage{float}
 \usepackage[ruled,vlined]{algorithm2e}
 \usepackage{algorithmic}
+\usepackage{array}
+\usepackage{tabularx}
 \def\UrlFont{\rmfamily}
 
 \begin{document}
@@ -34,42 +35,42 @@ The abstract should summarize the contents of the report and should contain at l
  
 
 \section{Introduction}
-The Artificial Intelligence domain has had many single-agent search algorithms. To check their effectiveness, numerous gaming problems have been developed. Among these games is the N-puzzle problem, which is also included in the list of classic difficulty issues. This puzzle is made up of N square tiles numbered from 1 to N. It is represented in a search graph or tree, where the nodes depict the position of the square tiles in the grid. The goal of this problem is to rearrange the numbers in ascending order on the MxM board. This paper focusses on the 8-puzzle problem, which was chosen because it has a smaller state space than the larger N-puzzle problem and the algorithms can be analyzed extensively. We have used three algorithms (BFS, DFS, A*) to find the solution for this puzzle. Such solutions are often measured by analyzing their measurement criteria, such as the cost of the path and the time taken to find the solution. \\
+\noindent The Artificial Intelligence domain has had many single-agent search algorithms. To check their effectiveness, numerous gaming problems have been developed. Among these games is the N-puzzle problem, which is also included in the list of classic difficulty issues. This puzzle is made up of N square tiles numbered from 1 to N. It is represented in a search graph or tree, where the nodes depict the position of the square tiles in the grid. The goal of this problem is to rearrange the numbers in ascending order on the MxM board. This paper focusses on the 8-puzzle problem, which was chosen because it has a smaller state space than the larger N-puzzle problem and the algorithms can be analyzed extensively. We have used three algorithms (BFS, DFS, A*) to find the solution for this puzzle. Such solutions are often measured by analyzing their measurement criteria, such as the cost of the path, the time taken and the nodes expanded to find the solution. In the A* algorithm, we have used two heuristic measurements - Gaschnig’s Max Swap and Hausdorff distance. The Hausdorff distance is a novel technique that has not been used in the previous literature to solve the N-puzzle problem. In this technique, the images of the board's current state and the goal state are compared to indicate how far the current state is from the goal state. That is, the difference between the images is used as a heuristic for the A* algorithm. \\
 
 \noindent The paper is structured as follows: section 2 discusses prior literature outlining the algorithms used in those papers,  section 3 defines the 8-puzzle problem in detail and describes the algorithms used, section 4 shows the results and comparisons of these algorithms.
 
 \section{Related Work}
+\noindent According to the Pearl, et. Al. , the environment that provides a platform for the search is known as Problem Space. Each of these problem spaces consists a set of states and operators. For instance, in terms of 8 puzzle, states can be defined as the different possible arrangement from the initial configuration of the numbers while operators are the possible directions, i.e. Left, Right, Up or Down. The problem instance can be defined as the problem space that consists of initial state and the goal state with a solution. The solution in this case is defined as the set of operators that changes the state from initial to the goal state. To provide the same perspective in terms of visualization, the problem space is considered as a graph (generally a tree) where each state is defined by the node and each operator is illustrated as an edge between the nodes. \\
 
-According to the Pearl, et. Al. , the environment that provides a platform for the search is known as Problem Space. Each of these problem spaces consists a set of states and operators. For instance, in terms of 8 puzzle, states can be defined as the different possible arrangement from the initial configuration of the numbers while operators are the possible directions, i.e. Left, Right, Up or Down. The problem instance can be defined as the problem space that consists of initial state and the goal state with a solution. The solution in this case is defined as the set of operators that changes the state from initial to the goal state. To provide the same perspective in terms of visualization, the problem space is considered as a graph (generally a tree) where each state is defined by the node and each operator is illustrated as an edge between the nodes.
-
-In searching problem space, there are many methods than can be applied to get to the goal state. We begin with the BruteForce search methods which includes Breadth-First Search, Depth-First Search. This will be followed by a deeper study on the Heuristic Search that includes the A* algorithm.
+\noindent In searching problem space, there are many methods than can be applied to get to the goal state. We begin with the BruteForce search methods which includes Breadth-First Search, Depth-First Search. This will be followed by a deeper study on the Heuristic Search that includes the A* algorithm.
 
 \subsection{Breadth First Search}
-BFS is one of the brute-force algorithms that does not require full knowledge of the state space to arrive at the goal. This uninformed search algorithm generates its state space by registering all the nodes that have been traversed in the search tree. For instance, the initial state in the 8-Puzzle problem is considered as the root node and offspring nodes are generated in such a way that the neighbouring nodes represent a single move or state change from the parent. This strategy employs the Breadth-First traversal approach, where the adjacent neighbours are traversed to find the optimum state. The lower levels are generated and traversed only if the required state is not reached on the current level of the tree. This can be an evidence that BFS always provides an optimized solution for a problem. BFS uses FIFO (First in First out) principle for performing search. The time complexity in finding the optimum state is directly proportional to the size of the search space, i.e O($b^{d}$). As all states needs to be stored to generate the next level, higher space complexity is the disadvantage of BFS algorithm.
+\noindent BFS is one of the brute-force algorithms that does not require full knowledge of the state space to arrive at the goal. This uninformed search algorithm generates its state space by registering all the nodes that have been traversed in the search tree. For instance, the initial state in the 8-Puzzle problem is considered as the root node and offspring nodes are generated in such a way that the neighbouring nodes represent a single move or state change from the parent. This strategy employs the Breadth-First traversal approach, where the adjacent neighbours are traversed to find the optimum state. The lower levels are generated and traversed only if the required state is not reached on the current level of the tree. This can be an evidence that BFS always provides an optimized solution for a problem. BFS uses FIFO (First in First out) principle for performing search. The time complexity in finding the optimum state is directly proportional to the size of the search space, i.e O($b^{d}$). As all states needs to be stored to generate the next level, higher space complexity is the disadvantage of BFS algorithm.
 
 \subsection{Depth First Search}
-In comparison to BFS, the idea of DFS is to keep expanding the state till it reaches the optimal solution or backtracking to the next nearest possible state. The algorithm employs LIFO (Last in First Out) approach in order to search the desired state in the search space. The time complexity does not change and remains same as in BFS O($b^{d}$), the only advantage of using this over BFS is in terms of space complexity, where only current search path is being saved (O(d)). This algorithm lacks the ability to provide an optimal solution in the given time and hence sometimes must be provided with an explicit cut-off depth.  The tree search version of DFS also lacks completeness due to possible infinite loops[1].
+\noindent In comparison to BFS, the idea of DFS is to keep expanding the state till it reaches the optimal solution or backtracking to the next nearest possible state. The algorithm employs LIFO (Last in First Out) approach in order to search the desired state in the search space. The time complexity does not change and remains same as in BFS O($b^{d}$), the only advantage of using this over BFS is in terms of space complexity, where only current search path is being saved (O(d)). This algorithm lacks the ability to provide an optimal solution in the given time and hence sometimes must be provided with an explicit cut-off depth.  The tree search version of DFS also lacks completeness due to possible infinite loops[1].
 
 \subsection{A* Search }
-A* is a form of informed search algorithm, the term “informed” signifies that the algorithm is made aware about the state space in the notion of heuristic function. The search method relies on finding the amount of match between a node and the goal state. This is quantified using the heuristic function which is basically the difference between the current state from the goal state. The higher value of this function signifies lesser relevancy of that state in reaching towards the goal. The algorithm uses the Breadth-First Search horizontal expansion technique but limits these expansions only to those node who have the smaller heuristic function value and also considers the path cost to the goal. A* performs better in terms of space complexity when compared to DFS  and  improves on the time complexity  when compared to BFS. The only disadvantage of using this algorithm is the computational overhead that is required for calculating the heuristic value along with the path cost of each node that is considered.
+\noindent A* is a form of informed search algorithm, the term “informed” signifies that the algorithm is made aware about the state space in the notion of heuristic function. The search method relies on finding the amount of match between a node and the goal state. This is quantified using the heuristic function which is basically the difference between the current state from the goal state. The higher value of this function signifies lesser relevancy of that state in reaching towards the goal. The algorithm uses the Breadth-First Search horizontal expansion technique but limits these expansions only to those node who have the smaller heuristic function value and also considers the path cost to the goal. A* performs better in terms of space complexity when compared to DFS  and  improves on the time complexity  when compared to BFS. The only disadvantage of using this algorithm is the computational overhead that is required for calculating the heuristic value along with the path cost of each node that is considered. \\
 
 \noindent To solve the 8-puzzle problem, we have chosen to implement Breadth-First Search, Depth-First Search, A* algorithms. With these selected algorithms we can compare both uninformed and informed search techniques in terms of completeness, space-time complexity, and optimality. Although the exhaustive traversal method of both breadth-first and depth-first searches do not promise optimality, they can act as a baseline for comparison with other algorithms in terms of improvements. Whereas the A* algorithm makes use of heuristics to make informed search traversal and provides an optimal solution. With an evaluation function that combines both the cost to reach the current state and estimated cost to reach the goal from the current state, the A* algorithm is both optimal and complete. Our intention to select the above algorithms is to evaluate the performance of these basic search algorithms on a real-world AI problem such as the 8-puzzle and compare various aspects of the algorithms.
 
-\noindent For the study of A* algorithm we have compared Gaschnig’s Max Swap and Hausdorff distance heuristic evaluation functions. Huang-Chia Shih et al. (2019) have used the Hausdorff distance to solve the problem of Jigsaw Puzzle for reconstruction without template image. The same can be applied to the 8 puzzle problem involving images of the state space. Gaschnig's evaluation function calculates number of tiles to be shifted to attain goal state if any tile could be swapped with empty tile.
+\noindent For the study of A* algorithm we have compared Gaschnig’s Max Swap and Hausdorff distance heuristic evaluation functions. Huang-Chia Shih et al. (2019) have used the Hausdorff distance to solve the problem of Jigsaw Puzzle for reconstruction without template image.The same can be applied to the 8 puzzle problem involving images of the state space.Gaschnig's evaluation function calculates number of tiles to be shifted to attain goal state if any tile could be swapped with empty tile.
 
-For generation of images of the state space we used images of numbers from 0 to 9 from the mnist dataset. The image_generator() function takes array of the state as input to generate corresponding combined image of mnist numbers.
+\noindent For generation of images of the state space we used images of numbers from 0 to 9 from the mnist  dataset.The image\_generator() function takes array of the state as input to generate corresponding combined image of mnist numbers.
 
 \section{Problem Definition and Algorithm}
-The n-puzzle problem is a classic AI problem which contains n numbered tiles and one blank tile. The tiles are numbered as 1, 2, 3 .. n. The numbered tiles can be moved in the place of empty tile. To achieve the goal state of the puzzle, the grid should be arranged in such a way that the empty tile is at the first position and all the numbered tiles are arranged in numerical order. The aim of the n-puzzle problem is to reach the goal state with the least cost. For instance, an eight-puzzle problem consists of 8 numbered tiles - 1, 2, 3, 4, 5, 6, 7, 8. The goal state of the 8-puzzle problem is shown in the figure (fig 1).
+\noindent The n-puzzle problem is a classic AI problem which contains n numbered tiles and one blank tile. The tiles are numbered as 1, 2, 3 .. n. The numbered tiles can be moved in the place of empty tile. To achieve the goal state of the puzzle, the grid should be arranged in such a way that the empty tile is at the first position and all the numbered tiles are arranged in numerical order. The aim of the n-puzzle problem is to reach the goal state with the least cost. For instance, an eight-puzzle problem consists of 8 numbered tiles - 1, 2, 3, 4, 5, 6, 7, 8. The goal state of the 8-puzzle problem is shown in the figure (fig 1). \\
 
 \begin{figure}
 	\centering
-	\includegraphics[width=4cm,height=4cm,keepaspectratio]{GoalState.png}
+	\includegraphics[width=4cm,height=3cm,keepaspectratio]{GoalState.png}
 	\caption{Goal State}
 	\label{fig:1}
 \end{figure}
 
-The cost to achieve the goal can be measured in terms of the number of movements done. At any given intermediate state, there can be at least two and at most four possible movements of the blank tile. Although reaching a goal in such puzzles is easy, but finding the shortest path with the lowest cost is difficult. The figure shows an example of a solution for an 8-puzzle problem from the given start state. The state-space of the 8-puzzle problem is such that if the goal state can be achieved in a certain number of steps, then all movements towards the solution are considered good moves and all the movements that are farther from the solution are considered bad moves. The aim is to find the good moves which lead to minimum cost. \\
+
+\noindent The cost to achieve the goal can be measured in terms of the number of movements done. At any given intermediate state, there can be at least two and at most four possible movements of the blank tile. Although reaching a goal in such puzzles is easy, but finding the shortest path with the lowest cost is difficult. The figure shows an example of a solution for an 8-puzzle problem from the given start state. The state-space of the 8-puzzle problem is such that if the goal state can be achieved in a certain number of steps, then all movements towards the solution are considered good moves and all the movements that are farther from the solution are considered bad moves. The aim is to find the good moves which lead to minimum cost. \\
 
 \begin{figure}
 	\centering
@@ -78,9 +79,9 @@ The cost to achieve the goal can be measured in terms of the number of movements
 	\label{fig:2}       % Give a unique label
 \end{figure}
 
-8-puzzle problem is a search problem which can be solved by various searching algorithms like BFS and DFS. In these, the problems are represented as search graphs or trees. The nodes of the graph/tree denote the states where the goal state is also present as one of the nodes. A part of the tree for the 8-puzzle problem is shown in the figure. The searching can be done by expanding to a depth (child nodes) or exploring the breadth (sibling nodes). \\
-For the implementation of BFS and DFS, we referred to the implementation done by [], which used Python. The model of a state was built with parameters like state, parent, cost, depth to maintain information about each state. For the 8-puzzle problem, a state is represented in an array format which shows the arrangement of the numbers in a particular state. For example, state A in the figure is represented as [0,8,7,6,5,4,3,2,1]. An expand() function is also added which is responsible for finding the states obtained after moves. The moves are done in the order of up, down, left and right. The BFS makes use of the queue data structure whereas the DFS makes use of the stack data structure. \\
-Additionally, few metrics are used for the measurement of the performance of the search algorithms. The maximum search depth is one of the parameters which measures the maximum depth that the algorithm explores to reach the solution. The maximum frontier size is the maximum size of the queue/stack that was acquired for reaching the goal state. Apart from this, running time and maximum RAM usage are other parameters used to measure the efficiency of the algorithm.
+\noindent 8-puzzle problem is a search problem which can be solved by various searching algorithms like BFS and DFS. In these, the problems are represented as search graphs or trees. The nodes of the graph/tree denote the states where the goal state is also present as one of the nodes. A part of the tree for the 8-puzzle problem is shown in the figure. The searching can be done by expanding to a depth (child nodes) or exploring the breadth (sibling nodes). \\
+
+\noindent For the implementation of BFS, DFS and A*, we referred to the implementation done by [], which used Python. The model of a state was built with parameters like state, parent, cost, depth to maintain information about each state. For the 8-puzzle problem, a state is represented in an array format which shows the arrangement of the numbers in a particular state. For example, state A in the figure is represented as [0,8,7,6,5,4,3,2,1]. An expand() function is also added which is responsible for finding the states obtained after four moves. The moves are done in the order of up, down, left and right. The BFS makes use of the queue data structure, the DFS makes use of the stack data structure and the A* algorithm uses the heap.  \\
 
 \subsection{BFS}
 \setlength{\intextsep}{5pt}
@@ -106,7 +107,7 @@ Additionally, few metrics are used for the measurement of the performance of the
 	\caption{BFS}
 \end{algorithm}
 
-\noindent If we go through the algorithm (Algorithm 1) and apply it to the given figure (fig 2), we can see that the queue variable is appended with [0,8,7,6,5,4,3,2,1] (State A), which is the initial state and where 0 represents blank. Since this is the only entry in the queue, the node variable is initialized with the value and added to the explored list. Since this state is not the goal state, we expand it to get states B and C (fig 2) as neighbors. These states are added to the queue and the explored list in the same order. Thus, when we pop an item from the queue, we get state B as the node, which is expanded and processed in the same way as in the previous step. Thus, states D and E are appended to the queue (consisting of state C) as well as the explored list. The next time when we pop an item from the queue, we get state C as the node, which is expanded and processed. In this way, the BFS algorithm analyzes nodes across the breadth of the search graph.
+\noindent If we go through the algorithm (Algorithm 1) and apply it to the given figure (fig 2), we can see that the queue variable is appended with [0,8,7,6,5,4,3,2,1] (State A), which is the initial state and where 0 represents blank. Since this is the only entry in the queue, the node variable is initialized with the value and added to the explored list. Since this state is not the goal state, we expand it to get states B and C (fig 2) as neighbors. These states are added to the queue and the explored list in the same order. Thus, when we pop an item from the queue, we get state B as the node, which is expanded and processed in the same way as in the previous step. Thus, states D and E are appended to the queue (consisting of state C) as well as the explored list. The next time when we pop an item from the queue, we get state C as the node, which is expanded and processed. In this way, the BFS algorithm analyzes nodes across the breadth of the search graph. \\
 
 \subsection{DFS}
 \setlength{\intextsep}{5pt}
@@ -132,10 +133,10 @@ Additionally, few metrics are used for the measurement of the performance of the
 	\caption{DFS}
 \end{algorithm}
 
-\noindent By applying this algorithm (Algorithm 2) to the given figure (fig 2), the stack variable is initialized with [0,8,7,6,5,4,3,2,1] (State A), which is the initial state and where 0 represents blank. Since this is the only entry in the stack, the node variable is initialized with the value and added to the explored list. Since this state is not the goal state, we expand it to get states B and C (fig 2) and store the reversed list in neighbors (consisting of state C and B). Thus, while appending the states, state B is the last node which is appended in the stack and explored list. Therefore, when we pop an item from the stack, we get state B as the node. Now, while expanding this node, we get state D and E, which is reversed and appended to stack and explored list. Thus, the stack (consisting of states C, E, D) contains the last node as state D. The next time when we pop an item from the stack, we get state D as the node, which is expanded and processed. In this way, the DFS algorithm analyzes nodes down the depth of the search graph.
+\noindent By applying this algorithm (Algorithm 2) to the given figure (fig 2), the stack variable is initialized with [0,8,7,6,5,4,3,2,1] (State A), which is the initial state and where 0 represents blank. Since this is the only entry in the stack, the node variable is initialized with the value and added to the explored list. Since this state is not the goal state, we expand it to get states B and C (fig 2) and store the reversed list in neighbors (consisting of state C and B). Thus, while appending the states, state B is the last node which is appended in the stack and explored list. Therefore, when we pop an item from the stack, we get state B as the node. Now, while expanding this node, we get state D and E, which is reversed and appended to stack and explored list. Thus, the stack (consisting of states C, E, D) contains the last node as state D. The next time when we pop an item from the stack, we get state D as the node, which is expanded and processed. In this way, the DFS algorithm analyzes nodes down the depth of the search graph. 
 
 \subsection{A*}
-If we apply the algorithm (Algorithm 3)  on the given figure (fig 2), the heap queue and the heap entry list is initialized with the initial state ([0,8,7,6,5,4,3,2,1] (State A) and 0 represents blank tile), the cost of the path (which is 0 initially), the heuristic of the state. In this algorithm, the heuristic measure depicts how many moves are required for every tile to reach the goal state. So, for the initial state, tile numbered 1 needs three moves to reach the goal position, and tile numbered 2 also needs three moves to reach the goal state and so on. Thus, the total heuristic of the initial state is 16 (1+2+...). If we apply the algorithm (Algorithm 3)  on the given figure (fig 2), the heap queue and the heap entry list is initialized with the initial state ([0,8,7,6,5,4,3,2,1] (State A) and 0 represents blank tile), the cost of the path (which is 0 initially), the heuristic of the state. In this algorithm, the heuristic measure depicts how many moves are required for every tile to reach the goal state. So, for the initial state, tile numbered 1 needs three moves to reach the goal position, and tile numbered 2 also needs three moves to reach the goal state and so on. Thus, the total heuristic of the initial state is 16 (1+2+...).
+\noindent If we apply the algorithm (Algorithm 3)  on the given figure (fig 2), the heap queue and the heap entry list is initialized with the initial state ([0,8,7,6,5,4,3,2,1] (State A) and 0 represents blank tile), the cost of the path (which is 0 initially), the heuristic of the state. Two heuristic measures have been used in this algorithm - Gaschnig’s Max Swap and Hausdorff distance. In the Gaschnig’s Max Swap methodology, the heuristic measure depicts how many moves are required for every tile to reach the goal state. So, for the initial state, tile numbered 1 needs three moves to reach the goal position, and tile numbered 2 also needs three moves to reach the goal state and so on. Thus, the total heuristic of the initial state is 16 (1+2+...). In the Hausdorff distance methodology, the images of the current state and goal state are compared to see how far the state is from the goal state. We used the directed\_hausdorff from the scipy library to calculate the distance between the current state and goal state. Since the values for all the intermediate states were between 800-900, we scaled this distance by multiplying it with the previous measure. \\
 
 \setlength{\intextsep}{5pt}
 \begin{algorithm}
@@ -152,6 +153,7 @@ If we apply the algorithm (Algorithm 3)  on the given figure (fig 2), the heap q
 	heap.push(entry)\;
 	\While{heap is not empty}{
 		node = heap.pop()\;
+		pop node from heap\_entry\;
 		explored.add(node.state)\;
 		\If{node is goal state}{
 			return heap\;
@@ -176,7 +178,7 @@ If we apply the algorithm (Algorithm 3)  on the given figure (fig 2), the heap q
 	}
 	\caption{A*}
 \end{algorithm}
-\noindent Since this is the only entry in the heap, the node variable gets initialized with this state and added to the explored list. Since this state is not the goal state, we expand it to get states B and C (fig 2) as neighbors. If these states are not present in the explored list, they are added to the heap queue, heap entry list and explored list. While appending these states in the heap queue, the states are sorted in ascending order according to their heuristic measure. Since both the states have the same heuristic value (18), state B will be chosen to process further. If these states are present in the explored list and their heuristic measure is less than their previous measure, then the state is replaced with its current values in the heap queue and heap entry list. Also, the elements in the heap queue are sorted in ascending order. In this way, A* always takes the state which has the lowest heuristic measure.
+\noindent Since this is the only entry in the heap, the node variable gets initialized with this state and added to the explored list. Since this state is not the goal state, we expand it to get states B and C (fig 2) as neighbors. If these states are not present in the explored list, they are added to the heap queue, heap entry list and explored list. While appending these states in the heap queue, the states are sorted in ascending order according to their heuristic measure. Since both the states have the same heuristic value (18), state B will be chosen to process further. If these states are present in the explored list and their heuristic measure is less than their previous measure, then the state is replaced with its current values in the heap queue and heap entry list. Also, the elements in the heap queue are sorted in ascending order. In this way, A* always takes the state which has the lowest heuristic measure. 
 
 \section{Experimental Results}
 This section should provide the details of the evaluation. Specifically:
@@ -186,16 +188,49 @@ This section should provide the details of the evaluation. Specifically:
 \item Discussion: discuss the implication of the results of the proposed algorithms/models. What are the weakness/strengths of the method(s) compared with the other methods/baseline?
 \end{itemize}
 
+Few metrics are used for the measurement of the performance of the search algorithms. The number of nodes expanded is one of the parameters which measures the  expanded nodes to get the states after applying the four moves. The cost of the path is the number of steps/moves taken for reaching the goal state. Apart from this, running time is also used to measure the efficiency of the algorithm. For calculating the running time, we use a timer which starts before the execution begins and stops after the execution ends. These metrics are evaluated for all of the five start states with the mentioned difficulty levels showcased in Table 1. The results are obtained for BFS, DFS and A* (with both heuristics) algorithms. \\
+The results are showcased in Fig 3 and Fig 4. We choose the BFS, DFS and A* with Gaschnig's max swap heuristic is used as a baseline for our evaluation.
 
-\begin{figure}
+\begin{table}[ht]
+	\caption{Difficulty levels in 8-puzzle problem}
 	\centering
-	\frame{\includegraphics[width=0.5\linewidth]{Images/Nodes_expanded.png}}
-	\caption{Nodes expanded for each algorithm}
-	\frame{\includegraphics[width=0.5\linewidth]{Images/RunningTime.png}}
-	\caption{Run Time}
-	\frame{\includegraphics[width=0.5\linewidth]{Images/costofpath.png}}
-	\caption{Cost of Path}
-	\label{fig:my_label}
+\begin{tabularx}{0.8\textwidth} { 
+		| >{\raggedright\arraybackslash}X 
+		| >{\centering\arraybackslash}X 
+		| >{\raggedleft\arraybackslash}X | }
+	\hline
+	{\bf Difficulty level} & {\bf Start state}  \\
+	\hline
+	Very Easy  & [1, 0, 2, 3, 4, 5, 6, 7, 8] \\
+	\hline
+	Easy  & [3, 1, 2, 6, 4, 5, 0, 7, 8] \\
+	\hline
+	Doable  & [3, 1, 2, 6, 4, 5, 7, 8, 0] \\
+	\hline
+	Medium  & [7, 6, 0, 5, 8, 1, 4, 3, 2] \\
+	\hline
+	Difficult  & [0, 8, 7, 6, 5, 4, 3, 2, 1] \\
+	\hline
+\end{tabularx}
+\end{table}
+
+\begin{figure}[!tbp]
+	\centering
+	\begin{minipage}[b]{0.5\textwidth}
+		\includegraphics[width=\textwidth]{Images/Nodes_expanded.png}
+		\caption{Nodes expanded for each algorithm}
+	\end{minipage}
+	\hfill
+	\begin{minipage}[b]{0.4\textwidth}
+		\includegraphics[width=\textwidth, height=4cm]{Images/RunningTime.png}
+		\caption{Run Time}
+	\end{minipage}
+\end{figure}
+\begin{figure}
+    \centering
+    \frame{\includegraphics[width=0.5\linewidth]{Images/costofpath.png}}
+    \caption{Cost of Path}
+    \label{fig:my_label}
 \end{figure}
 
 \section{Conclusions}
