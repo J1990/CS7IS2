@@ -184,6 +184,7 @@ This section should provide the details of the evaluation. Specifically:
 \end{itemize}
 
 Few metrics are used for the measurement of the performance of the search algorithms. The number of nodes expanded is one of the parameters which measures the  expanded nodes to get the states after applying the four moves. The cost of the path is the number of steps/moves taken for reaching the goal state. Apart from this, running time is also used to measure the efficiency of the algorithm. For calculating the running time, we use a timer which starts before the execution begins and stops after the execution ends. These metrics are evaluated for all of the five start states with the mentioned difficulty levels showcased in Table 1. The results are obtained for BFS, DFS and A* (with both heuristics) algorithms. \\
+The results are showcased in Fig 3 and Fig 4. We choose the BFS, DFS and A* with Gaschnig's max swap heuristic is used as a baseline for our evaluation.
 
 \begin{table}[ht]
 	\caption{Difficulty levels in 8-puzzle problem}
@@ -208,8 +209,6 @@ Few metrics are used for the measurement of the performance of the search algori
 \end{tabularx}
 \end{table}
 
-The results are showcased in the fig.
-
 \begin{figure}[!tbp]
 	\centering
 	\begin{minipage}[b]{0.5\textwidth}
@@ -221,6 +220,12 @@ The results are showcased in the fig.
 		\includegraphics[width=\textwidth, height=4cm]{Images/RunningTime.png}
 		\caption{Run Time}
 	\end{minipage}
+\end{figure}
+\begin{figure}
+    \centering
+    \frame{\includegraphics[width=0.5\linewidth]{Images/costofpath.png}}
+    \caption{Cost of Path}
+    \label{fig:my_label}
 \end{figure}
 
 
