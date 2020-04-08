@@ -8,6 +8,8 @@
 \usepackage{float}
 \usepackage[ruled,vlined]{algorithm2e}
 \usepackage{algorithmic}
+\usepackage{array}
+\usepackage{tabularx}
 \def\UrlFont{\rmfamily}
 
 \begin{document}
@@ -59,12 +61,12 @@ The n-puzzle problem is a classic AI problem which contains n numbered tiles and
 
 \begin{figure}
 	\centering
-	\includegraphics[width=6cm,height=6cm,keepaspectratio]{GoalState.png}
+	\includegraphics[width=4cm,height=3cm,keepaspectratio]{GoalState.png}
 	\caption{Goal State}
 	\label{fig:1}
 \end{figure}
 
-The cost to achieve the goal can be measured in terms of the number of movements done. At any given intermediate state, there can be at least two and at most four possible movements of the blank tile. Although reaching a goal in such puzzles is easy, but finding the shortest path with the lowest cost is difficult. The figure shows an example of a solution for an 8-puzzle problem from the given start state. The state-space of the 8-puzzle problem is such that if the goal state can be achieved in a certain number of steps, then all movements towards the solution are considered good moves and all the movements that are farther from the solution are considered bad moves. The aim is to find the good moves which lead to minimum cost. \\
+The cost to achieve the goal can be measured in terms of the number of movements done. At any given intermediate state, there can be at least two and at most four possible movements of the blank tile. Although reaching a goal in such puzzles is easy, but finding the shortest path with the lowest cost is difficult. The figure shows an example of a solution for an 8-puzzle problem from the given start state. The state-space of the 8-puzzle problem is such that if the goal state can be achieved in a certain number of steps, then all movements towards the solution are considered good moves and all the movements that are farther from the solution are considered bad moves. The aim is to find the good moves which lead to minimum cost. 
 
 \begin{figure}
 	\centering
@@ -74,8 +76,7 @@ The cost to achieve the goal can be measured in terms of the number of movements
 \end{figure}
 
 8-puzzle problem is a search problem which can be solved by various searching algorithms like BFS and DFS. In these, the problems are represented as search graphs or trees. The nodes of the graph/tree denote the states where the goal state is also present as one of the nodes. A part of the tree for the 8-puzzle problem is shown in the figure. The searching can be done by expanding to a depth (child nodes) or exploring the breadth (sibling nodes). \\
-For the implementation of BFS and DFS, we referred to the implementation done by [], which used Python. The model of a state was built with parameters like state, parent, cost, depth to maintain information about each state. For the 8-puzzle problem, a state is represented in an array format which shows the arrangement of the numbers in a particular state. For example, state A in the figure is represented as [0,8,7,6,5,4,3,2,1]. An expand() function is also added which is responsible for finding the states obtained after moves. The moves are done in the order of up, down, left and right. The BFS makes use of the queue data structure whereas the DFS makes use of the stack data structure. \\
-Additionally, few metrics are used for the measurement of the performance of the search algorithms. The maximum search depth is one of the parameters which measures the maximum depth that the algorithm explores to reach the solution. The maximum frontier size is the maximum size of the queue/stack that was acquired for reaching the goal state. Apart from this, running time and maximum RAM usage are other parameters used to measure the efficiency of the algorithm.
+For the implementation of BFS, DFS and A*, we referred to the implementation done by [], which used Python. The model of a state was built with parameters like state, parent, cost, depth to maintain information about each state. For the 8-puzzle problem, a state is represented in an array format which shows the arrangement of the numbers in a particular state. For example, state A in the figure is represented as [0,8,7,6,5,4,3,2,1]. An expand() function is also added which is responsible for finding the states obtained after four moves. The moves are done in the order of up, down, left and right. The BFS makes use of the queue data structure, the DFS makes use of the stack data structure and the A* algorithm uses the heap. 
 
 \subsection{BFS}
 \setlength{\intextsep}{5pt}
@@ -147,6 +148,7 @@ If we apply the algorithm (Algorithm 3)  on the given figure (fig 2), the heap q
 	heap.push(entry)\;
 	\While{heap is not empty}{
 		node = heap.pop()\;
+		pop node from heap\_entry\;
 		explored.add(node.state)\;
 		\If{node is goal state}{
 			return heap\;
@@ -180,6 +182,31 @@ This section should provide the details of the evaluation. Specifically:
 \item Results: present the results of the experimental evaluation. Graphical data and tables are two common ways to present the results. Also, a comparison with a baseline should be provided.
 \item Discussion: discuss the implication of the results of the proposed algorithms/models. What are the weakness/strengths of the method(s) compared with the other methods/baseline?
 \end{itemize}
+
+Few metrics are used for the measurement of the performance of the search algorithms. The number of nodes expanded is one of the parameters which measures the number of nodes expanded to get the states after applying the four moves. The cost of the path is the number of steps/moves taken for reaching the goal state. Apart from this, running time is also used to measure the efficiency of the algorithm. For calculating the running time, we use a timer which starts before the execution begins and stops after the execution ends. These metrics are evaluated for all of the five start states with the mentioned difficulty levels showcased in Table 1. \\
+\begin{table}[ht]
+	\caption{Difficulty levels in 8-puzzle problem}
+	\centering
+\begin{tabularx}{0.8\textwidth} { 
+		| >{\raggedright\arraybackslash}X 
+		| >{\centering\arraybackslash}X 
+		| >{\raggedleft\arraybackslash}X | }
+	\hline
+	{\bf Difficulty level} & {\bf Start state}  \\
+	\hline
+	Very Easy  & [1, 0, 2, 3, 4, 5, 6, 7, 8] \\
+	\hline
+	Easy  & [3, 1, 2, 6, 4, 5, 0, 7, 8] \\
+	\hline
+	Doable  & [3, 1, 2, 6, 4, 5, 7, 8, 0] \\
+	\hline
+	Medium  & [7, 6, 0, 5, 8, 1, 4, 3, 2] \\
+	\hline
+	Difficult  & [0, 8, 7, 6, 5, 4, 3, 2, 1] \\
+	\hline
+\end{tabularx}
+\end{table}
+
 
 \section{Conclusions}
 Provide a final discussion of the main results and conclusions of the report. Comment on the lesson learnt and possible improvements.
