@@ -13,6 +13,7 @@
 \usepackage{subcaption}
 \usepackage{makecell}
 \def\UrlFont{\rmfamily}
+\captionsetup{compatibility=false} 
 
 
 \begin{document}
@@ -56,7 +57,7 @@ The abstract should summarize the contents of the report and should contain at l
 \noindent For the study of A* algorithm we have compared Gaschnig’s Max Swap and Hausdorff distance heuristic evaluation functions. Huang-Chia Shih et al. (2019) have used the Hausdorff distance to solve the problem of Jigsaw Puzzle for reconstruction without template image.The same can be applied to the 8 puzzle problem involving images of the state space. Gaschnig's evaluation function calculates number of tiles to be shifted to attain goal state if any tile could be swapped with empty tile.
 
 \section{Problem Definition and Algorithm}
-\noindent The n-puzzle problem is a classic AI problem which contains n numbered tiles and one blank tile. The tiles are numbered as 1, 2, 3 .. n. The numbered tiles can be moved in the place of empty tile. To achieve the goal state of the puzzle, the grid should be arranged in such a way that the empty tile is at the first position and all the numbered tiles are arranged in numerical order. The aim of the n-puzzle problem is to reach the goal state with the least cost. For instance, an eight-puzzle problem consists of 8 numbered tiles - 1, 2, 3, 4, 5, 6, 7, 8. The goal state of the 8-puzzle problem is shown in the figure (fig 1a). \\
+\noindent The n-puzzle problem is a classic AI problem which contains n numbered tiles and one blank tile. The tiles are numbered as 1, 2, 3 .. n. The numbered tiles can be moved in the place of empty tile. To achieve the goal state of the puzzle, the grid should be arranged in such a way that the empty tile is at the first position and all the numbered tiles are arranged in numerical order. The aim of the n-puzzle problem is to reach the goal state with the least cost. For instance, an eight-puzzle problem consists of 8 numbered tiles - 1, 2, 3, 4, 5, 6, 7, 8. The goal state of the 8-puzzle problem is shown in Figure~\ref{fig:1a}. \\
 
 \begin{figure}
 	\centering
@@ -76,9 +77,9 @@ The abstract should summarize the contents of the report and should contain at l
 	\label{fig:1}
 \end{figure}
 
-\noindent The cost to achieve the goal can be measured in terms of the number of movements done. At any given intermediate state, there can be at least two and at most four possible movements of the blank tile. Although reaching a goal in such puzzles is easy, but finding the shortest path with the lowest cost is difficult. The figure shows an example of a solution for an 8-puzzle problem from the given start state. The state-space of the 8-puzzle problem is such that if the goal state can be achieved in a certain number of steps, then all movements towards the solution are considered good moves and all the movements that are farther from the solution are considered bad moves. The aim is to find the good moves which lead to minimum cost. \\
+\noindent The cost to achieve the goal can be measured in terms of the number of movements done. At any given intermediate state, there can be at least two and at most four possible movements of the blank tile. Although reaching a goal in such puzzles is easy, but finding the shortest path with the lowest cost is difficult. The Figure~\ref{fig:1b} shows an example of a solution for an 8-puzzle problem from the given start state. The state-space of the 8-puzzle problem is such that if the goal state can be achieved in a certain number of steps, then all movements towards the solution are considered good moves and all the movements that are farther from the solution are considered bad moves. The aim is to find the good moves which lead to minimum cost. \\
 
-\noindent 8-puzzle problem is a search problem which can be solved by various searching algorithms like BFS and DFS. In these, the problems are represented as search graphs or trees. The nodes of the graph/tree denote the states where the goal state is also present as one of the nodes. A part of the tree for the 8-puzzle problem is shown in the (fig 1). The searching can be done by expanding to a depth (child nodes) or exploring the breadth (sibling nodes). \\
+\noindent 8-puzzle problem is a search problem which can be solved by various searching algorithms like BFS and DFS. In these, the problems are represented as search graphs or trees. The nodes of the graph/tree denote the states where the goal state is also present as one of the nodes. A part of the tree for the 8-puzzle problem is shown in the Figure~\ref{fig:1b}. The searching can be done by expanding to a depth (child nodes) or exploring the breadth (sibling nodes). \\
 
 \noindent For the implementation of BFS, DFS and A*, we referred to the implementation done by [], which used Python. The model of a state was built with parameters like state, parent, cost, depth to maintain information about each state. For the 8-puzzle problem, a state is represented in an array format which shows the arrangement of the numbers in a particular state. For example, state A in the figure is represented as [0,8,7,6,5,4,3,2,1]. An expand() function is also added which is responsible for finding the states obtained after four moves. The moves are done in the order of up, down, left and right. The BFS makes use of the queue data structure, the DFS makes use of the stack data structure and the A* algorithm uses the heap.
 
@@ -106,7 +107,7 @@ The abstract should summarize the contents of the report and should contain at l
 	\caption{BFS}
 \end{algorithm}
 
-\noindent If we go through the algorithm (Algorithm 1) and apply it to the given figure (fig 1b), we can see that the queue variable is appended with [0,8,7,6,5,4,3,2,1] (State A), which is the initial state and where 0 represents blank. Since this is the only entry in the queue, the node variable is initialized with the value and added to the explored list. Since this state is not the goal state, we expand it to get states B and C (fig 1b) as neighbors. These states are added to the queue and the explored list in the same order. Thus, when we pop an item from the queue, we get state B as the node, which is expanded and processed in the same way as in the previous step. Thus, states D and E are appended to the queue (consisting of state C) as well as the explored list. The next time when we pop an item from the queue, we get state C as the node, which is expanded and processed. In this way, the BFS algorithm analyzes nodes across the breadth of the search graph.
+\noindent If we go through the algorithm (Algorithm 1) and apply it to the given figure (Figure~\ref{fig:1b}), we can see that the queue variable is appended with [0,8,7,6,5,4,3,2,1] (State A), which is the initial state and where 0 represents blank. Since this is the only entry in the queue, the node variable is initialized with the value and added to the explored list. Since this state is not the goal state, we expand it to get states B and C (Figure~\ref{fig:1b}) as neighbors. These states are added to the queue and the explored list in the same order. Thus, when we pop an item from the queue, we get state B as the node, which is expanded and processed in the same way as in the previous step. Thus, states D and E are appended to the queue (consisting of state C) as well as the explored list. The next time when we pop an item from the queue, we get state C as the node, which is expanded and processed. In this way, the BFS algorithm analyzes nodes across the breadth of the search graph.
 \subsection{DFS}
 \setlength{\intextsep}{2pt}
 \begin{algorithm}
@@ -130,10 +131,10 @@ The abstract should summarize the contents of the report and should contain at l
 	}
 	\caption{DFS}
 \end{algorithm}
-\noindent By applying this algorithm (Algorithm 2) to the given figure (fig 1), the stack variable is initialized with [0,8,7,6,5,4,3,2,1] (State A), which is the initial state and where 0 represents blank. Since this is the only entry in the stack, the node variable is initialized with the value and added to the explored list. Since this state is not the goal state, we expand it to get states B and C (fig 2) and store the reversed list in neighbors (consisting of state C and B). Thus, while appending the states, state B is the last node which is appended in the stack and explored list. Therefore, when we pop an item from the stack, we get state B as the node. Now, while expanding this node, we get state D and E, which is reversed and appended to stack and explored list. Thus, the stack (consisting of states C, E, D) contains the last node as state D. The next time when we pop an item from the stack, we get state D as the node, which is expanded and processed. In this way, the DFS algorithm analyzes nodes down the depth of the search graph. 
+\noindent By applying this algorithm (Algorithm 2) to the given figure (Figure~\ref{fig:1b}), the stack variable is initialized with [0,8,7,6,5,4,3,2,1] (State A), which is the initial state and where 0 represents blank. Since this is the only entry in the stack, the node variable is initialized with the value and added to the explored list. Since this state is not the goal state, we expand it to get states B and C (Figure~\ref{fig:1b}) and store the reversed list in neighbors (consisting of state C and B). Thus, while appending the states, state B is the last node which is appended in the stack and explored list. Therefore, when we pop an item from the stack, we get state B as the node. Now, while expanding this node, we get state D and E, which is reversed and appended to stack and explored list. Thus, the stack (consisting of states C, E, D) contains the last node as state D. The next time when we pop an item from the stack, we get state D as the node, which is expanded and processed. In this way, the DFS algorithm analyzes nodes down the depth of the search graph. 
 
 \subsection{A*}
-If we apply the algorithm (Algorithm 3)  on the given figure (fig 1b), the heap queue and the heap entry list is initialized with the initial state ([0,8,7,6,5,4,3,2,1] (State A) and 0 represents blank tile), the cost of the path (which is 0 initially), the heuristic of the state. Two heuristic measures have been used in this algorithm - Gaschnig’s Max Swap and Hausdorff distance. In the Gaschnig’s Max Swap methodology, the heuristic measure depicts how many moves are required for every tile to reach the goal state. So, for the initial state, tile numbered 1 needs three moves to reach the goal position, and tile numbered 2 also needs three moves to reach the goal state and so on. Thus, the total heuristic of the initial state is 16 (1+2+...). 
+If we apply the algorithm (Algorithm 3)  on the given figure (Figure~\ref{fig:1b}), the heap queue and the heap entry list is initialized with the initial state ([0,8,7,6,5,4,3,2,1] (State A) and 0 represents blank tile), the cost of the path (which is 0 initially), the heuristic of the state. Two heuristic measures have been used in this algorithm - Gaschnig’s Max Swap and Hausdorff distance. In the Gaschnig’s Max Swap methodology, the heuristic measure depicts how many moves are required for every tile to reach the goal state. So, for the initial state, tile numbered 1 needs three moves to reach the goal position, and tile numbered 2 also needs three moves to reach the goal state and so on. Thus, the total heuristic of the initial state is 16 (1+2+...). 
 \setlength{\intextsep}{3pt}
 \begin{algorithm}[H]
 	\SetAlgoLined
@@ -175,33 +176,15 @@ If we apply the algorithm (Algorithm 3)  on the given figure (fig 1b), the heap 
 	\caption{A*}
 \end{algorithm}
 
-\noindent In the Hausdorff distance methodology, the images of the current state and goal state are compared to see how far the state is from the goal state. For generation of images of the state space we used images of numbers from 0 to 9 from the mnist  dataset.The image\_generator() function takes array of the state as input to generate corresponding combined image of mnist numbers. We used the directed\_hausdorff from the scipy library to calculate the distance between the current state and goal state. Since the values for all the intermediate states were between 800-900, we scaled this distance by multiplying it with the previous measure. Since this is the only entry in the heap, the node variable gets initialized with this state and added to the explored list. Since this state is not the goal state, we expand it to get states B and C (fig 2) as neighbors. If these states are not present in the explored list, they are added to the heap queue, heap entry list and explored list. While appending these states in the heap queue, the states are sorted in ascending order according to their heuristic measure. Since both the states have the same heuristic value (18), state B will be chosen to process further. If these states are present in the explored list and their heuristic measure is less than their previous measure, then the state is replaced with its current values in the heap queue and heap entry list. Also, the elements in the heap queue are sorted in ascending order. In this way, A* always takes the state which has the lowest heuristic measure. 
+\noindent In the Hausdorff distance methodology, the images of the current state and goal state are compared to see how far the state is from the goal state. For generation of images of the state space we used images of numbers from 0 to 9 from the mnist  dataset.The image\_generator() function takes array of the state as input to generate corresponding combined image of mnist numbers. We used the directed\_hausdorff from the scipy library to calculate the distance between the current state and goal state. Since the values for all the intermediate states were between 800-900, we scaled this distance by multiplying it with the previous measure. Since this is the only entry in the heap, the node variable gets initialized with this state and added to the explored list. Since this state is not the goal state, we expand it to get states B and C (Figure~\ref{fig:1b}) as neighbors. If these states are not present in the explored list, they are added to the heap queue, heap entry list and explored list. While appending these states in the heap queue, the states are sorted in ascending order according to their heuristic measure. Since both the states have the same heuristic value (18), state B will be chosen to process further. If these states are present in the explored list and their heuristic measure is less than their previous measure, then the state is replaced with its current values in the heap queue and heap entry list. Also, the elements in the heap queue are sorted in ascending order. In this way, A* always takes the state which has the lowest heuristic measure. 
 
 \section{Experimental Results}
-\noindent Few metrics are used for the measurement of the performance of the search algorithms. The number of nodes expanded is one of the parameters which measures the  expanded nodes to get the states after applying the four moves. The cost of the path is the number of steps/moves taken for reaching the goal state. Apart from this, running time is also used to measure the efficiency of the algorithm. For calculating the running time, we use a timer which starts before the execution begins and stops after the execution ends. These metrics are evaluated for all of the five start states with the mentioned difficulty levels showcased in Table 1. The results are obtained for BFS, DFS and A* (with both heuristics) algorithms. The results are showcased in Fig 3 and Fig 4. We choose the BFS, DFS and A* with Gaschnig's max swap heuristic is used as a baseline for our evaluation.\\
-
-\setlength{\intextsep}{5pt}
-\begin{figure}
-	\centering
-	\begin{minipage}[b]{0.47\textwidth}
-		\includegraphics[width=\textwidth]{Images/Nodes_expanded.png}
-		\caption{Nodes expanded}
-	\end{minipage}\hfill
-	\begin{minipage}[b]{0.47\textwidth}
-		\includegraphics[width=\textwidth, height=4cm]{Images/RunningTime.png}
-		\caption{Run Time}
-	\end{minipage}
-\end{figure}
-
-\noindent As shown in figure 3, the number of nodes expanded for A* with both the heuristics is equal for very easy, easy and doable start states. However, for the medium and difficult start state, the number of nodes expanded has drastically decreased for A* with Hausdorff distance. For difficult start state, only 470 nodes are expanded for A* with Hausdorff distance as compared to 12,893 nodes for A* with Gaschnig's Max Swap. Also, the number of nodes expanded with all the start states (except easy) for A* with Hausdorff distance is less than the number of nodes for BFS and DFS.
-
-\noindent It can be seen in figure 4 that the running time for A* with Hausdorff distance is greater than BFS and A* with Gaschnig's Max Swap for all the start states. However, as compared to DFS,  A* with Hausdorff distance takes lesser time for very easy and doable start states.
-
-\noindent In terms of the cost of the path, we observed that BFS and A* with Gaschnig's Max Swap took an equal number of steps to reach the goal state. Figure 5 depicts the cost of the path where A* with Hausdorff distance took the same number of steps as BFS and A* with Gaschnig's Max Swap for very easy, easy and doable start states.  But it took more steps than these two algorithms for medium and difficult start states. In comparison to DFS, it performed better for doable, medium and difficult states.
+\noindent Few metrics are used for the measurement of the performance of the search algorithms. The number of nodes expanded is one of the parameters which measures the  expanded nodes to get the states after applying the four moves. The cost of the path is the number of steps/moves taken for reaching the goal state. Apart from this, running time is also used to measure the efficiency of the algorithm. For calculating the running time, we use a timer which starts before the execution begins and stops after the execution ends. These metrics are evaluated for all of the five start states with the mentioned difficulty levels showcased in Table~\ref{table:difficulty}. The results are obtained for BFS, DFS and A* (with both heuristics) algorithms. The results are showcased in Figure~\ref{fig:nodes}, Figure~\ref{fig:cost} and Figure~\ref{fig:time}. We choose the BFS, DFS and A* with Gaschnig's max swap heuristic is used as a baseline for our evaluation.\\
 
 \begin{table}
 	\begin{minipage}[b]{0.30\textwidth}
 		\caption{Difficulty levels}
+		\label{difficulty}
 		\centering
 		\begin{tabularx}{\textwidth} { 
 				| >{\raggedright\arraybackslash}X 
@@ -224,13 +207,34 @@ If we apply the algorithm (Algorithm 3)  on the given figure (fig 1b), the heap 
 	\end{minipage}\hfill
 	\begin{minipage}{0.65\textwidth}
 		\centering
-		\frame{\includegraphics[width=\textwidth,keepaspectratio]{Images/costofpath.png}}
-		\captionof{figure}{Cost of Path}
-		\label{fig:my_label}
+		\frame{\includegraphics[width=\textwidth,keepaspectratio]{Images/Nodes_expanded.png}}
+		\captionof{figure}{Nodes expanded}
+		\label{fig:nodes}
 	\end{minipage}
 \end{table}
 
-\noindent  The analysis shows that A* with Hausdorff distance expands the least number of nodes as compared to all the baselines. However, it takes a larger running time because of the computations involved in image generation and image comparison. It was also observed that the cost of the path was more for this method as compared to BFS and A* with Gaschnig's Max Swap since it selects based on the newer heuristic value. Thus, this type of heuristic can be probably used in scenarios where image comparison is done such as solving jigsaw puzzles.
+\noindent As shown in Figure~\ref{fig:nodes}, the number of nodes expanded for A* with both the heuristics is equal for very easy, easy and doable start states. However, for the medium and difficult start state, the number of nodes expanded has drastically decreased for A* with Hausdorff distance. For difficult start state, only 470 nodes are expanded for A* with Hausdorff distance as compared to 12,893 nodes for A* with Gaschnig's Max Swap. Also, the number of nodes expanded with all the start states (except easy) for A* with Hausdorff distance is less than the number of nodes for BFS and DFS. \\
+
+\noindent It can be seen in Figure~\ref{fig:time} that the running time for A* with Hausdorff distance is greater than BFS and A* with Gaschnig's Max Swap for all the start states. However, as compared to DFS,  A* with Hausdorff distance takes lesser time for very easy and doable start states. \\
+
+\setlength{\intextsep}{5pt}
+\begin{figure}
+	\centering
+	\begin{minipage}[b]{0.47\textwidth}
+		\includegraphics[width=\textwidth, height=4cm]{Images/RunningTime.png}
+		\caption{Run Time}
+		\label{fig:time}
+	\end{minipage}
+	\begin{minipage}[b]{0.47\textwidth}
+		\includegraphics[width=\textwidth]{Images/costofpath.png}
+		\caption{Cost of Path}
+		\label{fig:cost}
+	\end{minipage}\hfill
+\end{figure}
+
+\noindent In terms of the cost of the path, we observed that BFS and A* with Gaschnig's Max Swap took an equal number of steps to reach the goal state. Figure~\ref{fig:cost} depicts the cost of the path where A* with Hausdorff distance took the same number of steps as BFS and A* with Gaschnig's Max Swap for very easy, easy and doable start states.  But it took more steps than these two algorithms for medium and difficult start states. In comparison to DFS, it performed better for doable, medium and difficult states. \\
+
+\noindent  The analysis shows that A* with Hausdorff distance expands the least number of nodes as compared to all the baselines. However, it takes a larger running time because of the computations involved in image generation and image comparison. It was also observed that the cost of the path was more for this method as compared to BFS and A* with Gaschnig's Max Swap since it selects based on the newer heuristic value. Thus, this type of heuristic can be probably used in scenarios where image comparison is done such as solving jigsaw puzzles. \\
 
 \section{Conclusions}
 In this research, we applied BFS, DFS and A* algorithms to the 8-puzzle problem. We compared metrics such as the number of expanded nodes, cost of the path and running time of the algorithms. The A* algorithm outperforms the other two in most of these metrics. The comparison of heuristics on image puzzle has provided important insights about the practical application of Gaschnig's Max Swap and Hausdorff distance. Hausdorff distance evaluation function has shown promising results in our experiments and needs further research.
