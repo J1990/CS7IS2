@@ -11,11 +11,13 @@
 \usepackage{array}
 \usepackage{tabularx}
 \usepackage{subcaption}
+\usepackage{makecell}
 \def\UrlFont{\rmfamily}
+
 
 \begin{document}
 \mainmatter
-\title{Still thinking of a good title}
+\title{Image difference as a heuristic for solving 8-puzzle problem}
 \subtitle{CS7IS2 Project (2019/2020)}
 \author{Kulkarni Shravani Deepak, Kapoor Shuchita, Asolkar Jayprakash, Chauhan Paritosh}
 
@@ -41,20 +43,15 @@ The abstract should summarize the contents of the report and should contain at l
 \noindent The paper is structured as follows: section 2 discusses prior literature outlining the algorithms used in those papers,  section 3 defines the 8-puzzle problem in detail and describes the algorithms used, section 4 shows the results and comparisons of these algorithms.
 
 \section{Related Work}
-\noindent According to the Pearl, et. Al. , the environment that provides a platform for the search is known as Problem Space. Each of these problem spaces consist a set of states and operators. For instance, in terms of 8 puzzle, states can be defined as the different possible arrangement from the initial configuration of the numbers while operators are the possible directions, i.e. Left, Right, Up or Down. The problem instance can be defined as the problem space that consists of initial state and the goal state with a solution. The solution in this case is defined as the set of operators that changes the state from initial to the goal state. To provide the same perspective in terms of visualization, the problem space is considered as a graph (generally a tree) where each state is defined by the node and each operator is illustrated as an edge between the nodes. \\
+\noindent According to the Pearl, et. Al. , the environment that provides a platform for the search is known as Problem Space. Each of these problem spaces consist a set of states and operators. For instance, in terms of 8 puzzle, states can be defined as the different possible arrangement from the initial configuration of the numbers while operators are the possible directions, i.e. Left, Right, Up or Down. The problem instance can be defined as the problem space that consists of initial state and the goal state with a solution. The solution in this case is defined as the set of operators that changes the state from initial to the goal state. To provide the same perspective in terms of visualization, the problem space is considered as a graph (generally a tree) where each state is defined by the node and each operator is illustrated as an edge between the nodes. In searching problem space, there are many methods than can be applied to get to the goal state. We begin with the BruteForce search methods which includes Breadth-First Search, Depth-First Search. This will be followed by a deeper study on the Heuristic Search that includes the A* algorithm.\\
 
-\noindent In searching problem space, there are many methods than can be applied to get to the goal state. We begin with the BruteForce search methods which includes Breadth-First Search, Depth-First Search. This will be followed by a deeper study on the Heuristic Search that includes the A* algorithm.
+\noindent BFS is one of the brute-force algorithms that does not require full knowledge of the state space to arrive at the goal. This uninformed search algorithm generates its state space by registering all the nodes that have been traversed in the search tree. For instance, the initial state in the 8-Puzzle problem is considered as the root node and offspring nodes are generated in such a way that the neighbouring nodes represent a single move or state change from the parent. This strategy employs the Breadth-First traversal approach, where the adjacent neighbours are traversed to find the optimum state. The lower levels are generated and traversed only if the required state is not reached on the current level of the tree. This can be an evidence that BFS always provides an optimized solution for a problem. BFS uses FIFO (First in First out) principle for performing search. The time complexity in finding the optimum state is directly proportional to the size of the search space, i.e O($b^{d}$). As all states needs to be stored to generate the next level, higher space complexity is the disadvantage of BFS algorithm.\\
 
-\subsection{Breadth First Search}
-\noindent BFS is one of the brute-force algorithms that does not require full knowledge of the state space to arrive at the goal. This uninformed search algorithm generates its state space by registering all the nodes that have been traversed in the search tree. For instance, the initial state in the 8-Puzzle problem is considered as the root node and offspring nodes are generated in such a way that the neighbouring nodes represent a single move or state change from the parent. This strategy employs the Breadth-First traversal approach, where the adjacent neighbours are traversed to find the optimum state. The lower levels are generated and traversed only if the required state is not reached on the current level of the tree. This can be an evidence that BFS always provides an optimized solution for a problem. BFS uses FIFO (First in First out) principle for performing search. The time complexity in finding the optimum state is directly proportional to the size of the search space, i.e O($b^{d}$). As all states needs to be stored to generate the next level, higher space complexity is the disadvantage of BFS algorithm.
+\noindent In comparison to BFS, the idea of DFS is to keep expanding the state till it reaches the optimal solution or backtracking to the next nearest possible state. The algorithm employs LIFO (Last in First Out) approach in order to search the desired state in the search space. The time complexity does not change and remains same as in BFS O($b^{d}$), the only advantage of using this over BFS is in terms of space complexity, where only current search path is being saved (O(d)). This algorithm lacks the ability to provide an optimal solution in the given time and hence sometimes must be provided with an explicit cut-off depth.  The tree search version of DFS also lacks completeness due to possible infinite loops[1].\\
 
-\subsection{Depth First Search}
-\noindent In comparison to BFS, the idea of DFS is to keep expanding the state till it reaches the optimal solution or backtracking to the next nearest possible state. The algorithm employs LIFO (Last in First Out) approach in order to search the desired state in the search space. The time complexity does not change and remains same as in BFS O($b^{d}$), the only advantage of using this over BFS is in terms of space complexity, where only current search path is being saved (O(d)). This algorithm lacks the ability to provide an optimal solution in the given time and hence sometimes must be provided with an explicit cut-off depth.  The tree search version of DFS also lacks completeness due to possible infinite loops[1].
+\noindent A* is a form of informed search algorithm, the term “informed” signifies that the algorithm is made aware about the state space in the notion of heuristic function. The search method relies on finding the amount of match between a node and the goal state. This is quantified using the heuristic function which is basically the difference between the current state from the goal state. The higher value of this function signifies lesser relevancy of that state in reaching towards the goal. The algorithm uses the Breadth-First Search horizontal expansion technique but limits these expansions only to those node who have the smaller heuristic function value and also considers the path cost to the goal. A* performs better in terms of space complexity when compared to DFS  and  improves on the time complexity  when compared to BFS. The only disadvantage of using this algorithm is the computational overhead that is required for calculating the heuristic value along with the path cost of each node that is considered.\\
 
-\subsection{A* Search }
-\noindent A* is a form of informed search algorithm, the term “informed” signifies that the algorithm is made aware about the state space in the notion of heuristic function. The search method relies on finding the amount of match between a node and the goal state. This is quantified using the heuristic function which is basically the difference between the current state from the goal state. The higher value of this function signifies lesser relevancy of that state in reaching towards the goal. The algorithm uses the Breadth-First Search horizontal expansion technique but limits these expansions only to those node who have the smaller heuristic function value and also considers the path cost to the goal. A* performs better in terms of space complexity when compared to DFS  and  improves on the time complexity  when compared to BFS. The only disadvantage of using this algorithm is the computational overhead that is required for calculating the heuristic value along with the path cost of each node that is considered. \\
-
-\noindent To solve the 8-puzzle problem, we have chosen to implement Breadth-First Search, Depth-First Search, A* algorithms. With these selected algorithms we can compare both uninformed and informed search techniques in terms of completeness, space-time complexity, and optimality. Although the exhaustive traversal method of both breadth-first and depth-first searches do not promise optimality, they can act as a baseline for comparison with other algorithms in terms of improvements. Whereas the A* algorithm makes use of heuristics to make informed search traversal and provides an optimal solution. With an evaluation function that combines both the cost to reach the current state and estimated cost to reach the goal from the current state, the A* algorithm is both optimal and complete. Our intention to select the above algorithms is to evaluate the performance of these basic search algorithms on a real-world AI problem such as the 8-puzzle and compare various aspects of the algorithms.
+\noindent To solve the 8-puzzle problem, we have chosen to implement Breadth-First Search, Depth-First Search, A* algorithms. With these selected algorithms we can compare both uninformed and informed search techniques in terms of completeness, space-time complexity, and optimality. Although the exhaustive traversal method of both breadth-first and depth-first searches do not promise optimality, they can act as a baseline for comparison with other algorithms in terms of improvements. Whereas the A* algorithm makes use of heuristics to make informed search traversal and provides an optimal solution. With an evaluation function that combines both the cost to reach the current state and estimated cost to reach the goal from the current state, the A* algorithm is both optimal and complete. Our intention to select the above algorithms is to evaluate the performance of these basic search algorithms on a real-world AI problem such as the 8-puzzle and compare various aspects of the algorithms.\\
 
 \noindent For the study of A* algorithm we have compared Gaschnig’s Max Swap and Hausdorff distance heuristic evaluation functions. Huang-Chia Shih et al. (2019) have used the Hausdorff distance to solve the problem of Jigsaw Puzzle for reconstruction without template image.The same can be applied to the 8 puzzle problem involving images of the state space. Gaschnig's evaluation function calculates number of tiles to be shifted to attain goal state if any tile could be swapped with empty tile.
 
@@ -136,7 +133,7 @@ The abstract should summarize the contents of the report and should contain at l
 \noindent By applying this algorithm (Algorithm 2) to the given figure (fig 1), the stack variable is initialized with [0,8,7,6,5,4,3,2,1] (State A), which is the initial state and where 0 represents blank. Since this is the only entry in the stack, the node variable is initialized with the value and added to the explored list. Since this state is not the goal state, we expand it to get states B and C (fig 2) and store the reversed list in neighbors (consisting of state C and B). Thus, while appending the states, state B is the last node which is appended in the stack and explored list. Therefore, when we pop an item from the stack, we get state B as the node. Now, while expanding this node, we get state D and E, which is reversed and appended to stack and explored list. Thus, the stack (consisting of states C, E, D) contains the last node as state D. The next time when we pop an item from the stack, we get state D as the node, which is expanded and processed. In this way, the DFS algorithm analyzes nodes down the depth of the search graph. 
 
 \subsection{A*}
-If we apply the algorithm (Algorithm 3)  on the given figure (fig 1b), the heap queue and the heap entry list is initialized with the initial state ([0,8,7,6,5,4,3,2,1] (State A) and 0 represents blank tile), the cost of the path (which is 0 initially), the heuristic of the state. Two heuristic measures have been used in this algorithm - Gaschnig’s Max Swap and Hausdorff distance. In the Gaschnig’s Max Swap methodology, the heuristic measure depicts how many moves are required for every tile to reach the goal state.
+If we apply the algorithm (Algorithm 3)  on the given figure (fig 1b), the heap queue and the heap entry list is initialized with the initial state ([0,8,7,6,5,4,3,2,1] (State A) and 0 represents blank tile), the cost of the path (which is 0 initially), the heuristic of the state. Two heuristic measures have been used in this algorithm - Gaschnig’s Max Swap and Hausdorff distance. In the Gaschnig’s Max Swap methodology, the heuristic measure depicts how many moves are required for every tile to reach the goal state. So, for the initial state, tile numbered 1 needs three moves to reach the goal position, and tile numbered 2 also needs three moves to reach the goal state and so on. Thus, the total heuristic of the initial state is 16 (1+2+...). 
 \setlength{\intextsep}{3pt}
 \begin{algorithm}[H]
 	\SetAlgoLined
@@ -178,33 +175,32 @@ If we apply the algorithm (Algorithm 3)  on the given figure (fig 1b), the heap 
 	\caption{A*}
 \end{algorithm}
 
-\noindent So, for the initial state, tile numbered 1 needs three moves to reach the goal position, and tile numbered 2 also needs three moves to reach the goal state and so on. Thus, the total heuristic of the initial state is 16 (1+2+...).
 \noindent In the Hausdorff distance methodology, the images of the current state and goal state are compared to see how far the state is from the goal state. For generation of images of the state space we used images of numbers from 0 to 9 from the mnist  dataset.The image\_generator() function takes array of the state as input to generate corresponding combined image of mnist numbers. We used the directed\_hausdorff from the scipy library to calculate the distance between the current state and goal state. Since the values for all the intermediate states were between 800-900, we scaled this distance by multiplying it with the previous measure. Since this is the only entry in the heap, the node variable gets initialized with this state and added to the explored list. Since this state is not the goal state, we expand it to get states B and C (fig 2) as neighbors. If these states are not present in the explored list, they are added to the heap queue, heap entry list and explored list. While appending these states in the heap queue, the states are sorted in ascending order according to their heuristic measure. Since both the states have the same heuristic value (18), state B will be chosen to process further. If these states are present in the explored list and their heuristic measure is less than their previous measure, then the state is replaced with its current values in the heap queue and heap entry list. Also, the elements in the heap queue are sorted in ascending order. In this way, A* always takes the state which has the lowest heuristic measure. 
 
 \section{Experimental Results}
-\noindent Few metrics are used for the measurement of the performance of the search algorithms. The number of nodes expanded is one of the parameters which measures the  expanded nodes to get the states after applying the four moves. The cost of the path is the number of steps/moves taken for reaching the goal state. Apart from this, running time is also used to measure the efficiency of the algorithm. For calculating the running time, we use a timer which starts before the execution begins and stops after the execution ends. These metrics are evaluated for all of the five start states with the mentioned difficulty levels showcased in Table 1. The results are obtained for BFS, DFS and A* (with both heuristics) algorithms. The results are showcased in Fig 3 and Fig 4. We choose the BFS, DFS and A* with Gaschnig's max swap heuristic is used as a baseline for our evaluation. \\
+\noindent Few metrics are used for the measurement of the performance of the search algorithms. The number of nodes expanded is one of the parameters which measures the  expanded nodes to get the states after applying the four moves. The cost of the path is the number of steps/moves taken for reaching the goal state. Apart from this, running time is also used to measure the efficiency of the algorithm. For calculating the running time, we use a timer which starts before the execution begins and stops after the execution ends. These metrics are evaluated for all of the five start states with the mentioned difficulty levels showcased in Table 1. The results are obtained for BFS, DFS and A* (with both heuristics) algorithms. The results are showcased in Fig 3 and Fig 4. We choose the BFS, DFS and A* with Gaschnig's max swap heuristic is used as a baseline for our evaluation.\\
 
-\noindent As shown in figure 3, the number of nodes expanded for A* with both the heuristics is equal for very easy, easy and doable start states. However, for the medium and difficult start state, the number of nodes expanded has drastically decreased for A* with Hausdorff distance. For difficult start state, only 470 nodes are expanded for A* with Hausdorff distance as compared to 12,893 nodes for A* with Gaschnig's Max Swap. Also, the number of nodes expanded with all the start states (except easy) for A* with Hausdorff distance is less than the number of nodes for BFS and DFS. \\
-
-\noindent It can be seen in figure 4 that the running time for A* with Hausdorff distance is greater than BFS and A* with Gaschnig's Max Swap for all the start states. However, as compared to DFS,  A* with Hausdorff distance takes lesser time for very easy and doable start states.
-
-\begin{figure}[H]
+\setlength{\intextsep}{5pt}
+\begin{figure}
 	\centering
-	\begin{minipage}[b]{0.5\textwidth}
+	\begin{minipage}[b]{0.47\textwidth}
 		\includegraphics[width=\textwidth]{Images/Nodes_expanded.png}
-		\caption{Nodes expanded for each algorithm}
-	\end{minipage}
-	\hfill
-	\begin{minipage}[b]{0.4\textwidth}
+		\caption{Nodes expanded}
+	\end{minipage}\hfill
+	\begin{minipage}[b]{0.47\textwidth}
 		\includegraphics[width=\textwidth, height=4cm]{Images/RunningTime.png}
 		\caption{Run Time}
 	\end{minipage}
 \end{figure}
 
+\noindent As shown in figure 3, the number of nodes expanded for A* with both the heuristics is equal for very easy, easy and doable start states. However, for the medium and difficult start state, the number of nodes expanded has drastically decreased for A* with Hausdorff distance. For difficult start state, only 470 nodes are expanded for A* with Hausdorff distance as compared to 12,893 nodes for A* with Gaschnig's Max Swap. Also, the number of nodes expanded with all the start states (except easy) for A* with Hausdorff distance is less than the number of nodes for BFS and DFS.
+
+\noindent It can be seen in figure 4 that the running time for A* with Hausdorff distance is greater than BFS and A* with Gaschnig's Max Swap for all the start states. However, as compared to DFS,  A* with Hausdorff distance takes lesser time for very easy and doable start states.
+
 \noindent In terms of the cost of the path, we observed that BFS and A* with Gaschnig's Max Swap took an equal number of steps to reach the goal state. Figure 5 depicts the cost of the path where A* with Hausdorff distance took the same number of steps as BFS and A* with Gaschnig's Max Swap for very easy, easy and doable start states.  But it took more steps than these two algorithms for medium and difficult start states. In comparison to DFS, it performed better for doable, medium and difficult states.
 
 \begin{table}
-	\begin{minipage}[b]{0.35\textwidth}
+	\begin{minipage}[b]{0.30\textwidth}
 		\caption{Difficulty levels}
 		\centering
 		\begin{tabularx}{\textwidth} { 
@@ -214,19 +210,19 @@ If we apply the algorithm (Algorithm 3)  on the given figure (fig 1b), the heap 
 			\hline
 			{\bf Difficulty level} & {\bf Start state}  \\
 			\hline
-			Very Easy  & [1, 0, 2, 3, 4, 5, 6, 7, 8] \\
+			Very Easy  & \makecell{[1, 0, 2, \\ 3, 4, 5, \\ 6, 7, 8]} \\
 			\hline
-			Easy  & [3, 1, 2, 6, 4, 5, 0, 7, 8] \\
+			Easy  & \makecell{[3, 1, 2, \\ 6, 4, 5, \\ 0, 7, 8]} \\
 			\hline
-			Doable  & [3, 1, 2, 6, 4, 5, 7, 8, 0] \\
+			Doable  & \makecell{[3, 1, 2, \\6, 4, 5, \\7, 8, 0]} \\
 			\hline
-			Medium  & [7, 6, 0, 5, 8, 1, 4, 3, 2] \\
+			Medium  & \makecell{[7, 6, 0, \\5, 8, 1, \\4, 3, 2]} \\
 			\hline
-			Difficult  & [0, 8, 7, 6, 5, 4, 3, 2, 1] \\
+			Difficult  & \makecell{[0, 8, 7, \\6, 5, 4, \\3, 2, 1]} \\
 			\hline
 		\end{tabularx}
 	\end{minipage}\hfill
-	\begin{minipage}{0.6\textwidth}
+	\begin{minipage}{0.65\textwidth}
 		\centering
 		\frame{\includegraphics[width=\textwidth,keepaspectratio]{Images/costofpath.png}}
 		\captionof{figure}{Cost of Path}
@@ -237,7 +233,7 @@ If we apply the algorithm (Algorithm 3)  on the given figure (fig 1b), the heap 
 \noindent  The analysis shows that A* with Hausdorff distance expands the least number of nodes as compared to all the baselines. However, it takes a larger running time because of the computations involved in image generation and image comparison. It was also observed that the cost of the path was more for this method as compared to BFS and A* with Gaschnig's Max Swap since it selects based on the newer heuristic value. Thus, this type of heuristic can be probably used in scenarios where image comparison is done such as solving jigsaw puzzles.
 
 \section{Conclusions}
-In this research, we applied BFS, DFS and A* algorithms to the 8-puzzle problem. We compared metrics such as number of expanded nodes, cost of the path and running time of the algorithms. A* algorithm outperforms the other two in most of these metrics. The comparison of heuristics on image puzzle has provided important insights about the practical application of Gaschnig's Max Swap and Hausdorff distance. Hausdorff distance evaluation function has shown promising results in our experiments and needs further research.
+In this research, we applied BFS, DFS and A* algorithms to the 8-puzzle problem. We compared metrics such as the number of expanded nodes, cost of the path and running time of the algorithms. The A* algorithm outperforms the other two in most of these metrics. The comparison of heuristics on image puzzle has provided important insights about the practical application of Gaschnig's Max Swap and Hausdorff distance. Hausdorff distance evaluation function has shown promising results in our experiments and needs further research.
 
 \begin{thebibliography}{6}
 %
